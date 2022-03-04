@@ -28,7 +28,8 @@ const getNfts = async (req, res) => {
             nft_groups.push(nft);
         }
     }
-    //res.send(nft_groups);
+    res.send(nft_groups);
+    res.status(201)
     return nft_groups;//do not fully undertand the difference res end and return
     //take return value and save
 }
