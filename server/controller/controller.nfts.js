@@ -1,6 +1,8 @@
 //external alchemy API
 // alchemy-nft-api/alchemy-web3-script.js
-import { createAlchemyWeb3 } from "@alch/alchemy-web3";
+
+
+const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
 //import db from "../model/db";
 
 // Replace with your Alchemy api key:
@@ -10,8 +12,6 @@ const apiKey = "qE8laqQBcKmKtsvAxBbWAJrHepxaEeGn";
 const web3 = createAlchemyWeb3(
     `https://eth-mainnet.alchemyapi.io/v2/${apiKey}`,
 );
-
-
 const getNfts = async (req, res) => {
     // The wallet address we want to query for NFTs:
     const { eth_address } = req.body;
@@ -34,4 +34,4 @@ const getNfts = async (req, res) => {
     //take return value and save
 }
 
-modules.export = getNfts;
+module.exports = getNfts;

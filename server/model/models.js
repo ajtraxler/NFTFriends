@@ -14,14 +14,18 @@ const userSchema = new mongoose.Schema({
 })
 
 const eventSchema = new mongoose.Schema({
-    collection_name: {
+    group: {
         type: String,
         required: true
+    },
+    host: {
+        type: String,
     },
     date: {
         type: Date,
         required: true
     },
+    title: String,
     venue: String,
     street: String,
     postcode: String,
