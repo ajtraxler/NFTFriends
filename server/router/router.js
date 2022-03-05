@@ -21,7 +21,9 @@ router.patch('/', updateNFTCollection); //put vs patch??
 
 //DASHBOARD relateds
 router.get('/events', getCommunityEvents);
-router.patch('/events/:id/add', addToMyEvents);
+// router.patch('/events/:id/add', addToMyEvents);
+router.patch('/events/add', addToMyEvents);
+
 router.patch('/events/:id/remove', removeFromMyEvents);
 
 //FORM related

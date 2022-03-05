@@ -29,9 +29,6 @@ app.use(
 
 app.use(cookieParser());
 
-
-
-
 app.use(cors()); //how do u decide whaat corss to allow
 app.use(Express.json()); //body parssesr
 app.use(morgan('short'));

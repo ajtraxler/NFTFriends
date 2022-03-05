@@ -7,7 +7,7 @@ const getDBEthAddresses = async (req, res) => {
     const { eth_address } = req.body;
     const user = await User.findById({ eth_address: eth_address });
     if (user) {
-      req.session.userId = user._id;
+      req.session.userId = user.eth_address;
     }
     res.send(user);
     res.status(200);
@@ -23,9 +23,9 @@ const getDBEthAddresses = async (req, res) => {
 const postNewUser = async (req, res) => {
   try {
     console.log('in post')
-    const { eth_address } = req.body;
-    const newUser = await User.create({ eth_address: eth_address });
-    req.session.userId = newUser._id;
+    const { eth_address, nft_groups } = req.body; //remove nft_groups later
+    const newUser = await User.create({ eth_address: eth_address, nft_groups: nft_groups });
+    req.session.userId = newUser.eth_address;
     console.log(req.session)
     res.send(newUser);
     res.status(201);
