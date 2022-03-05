@@ -33,9 +33,10 @@ const addToMyEvents = async (req, res) => {
     //const eventId = req.param.id;
 
     const userId = req.session.userId; //have to send user info
-    const { title } = req.body;//alternatively try with req.params._id
+    const { title, _id } = req.body;//alternatively try with req.params._id
     console.log(userId);
     console.log(title);
+    const eventId = _id;
 
     const user = await User.findOne({ eth_address: userId });
     console.log("this is the user ", user);
@@ -48,11 +49,12 @@ const addToMyEvents = async (req, res) => {
 
 
     //find Event by eventID and add userID to attendees
-    const event = await Event.findOne({ title: title });
+    console.log(eventId, "eventId")
+    const event = await Event.findOne({ _id: eventId });
     console.log("this is the event", event);
     event.attendees.push(userId);
-    event.save();
     console.log(event.attendees);
+    event.save();
 
 
     res.send(event);
