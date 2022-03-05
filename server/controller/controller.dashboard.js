@@ -29,20 +29,11 @@ const getCommunityEvents = async (req, res) => {
 
 const addToMyEvents = async (req, res) => {
   try {
-    console.log("in addToMyEvent")
-    //const eventId = req.param.id;
-
     const userId = req.session.userId; //have to send user info
     const { title, _id } = req.body;//alternatively try with req.params._id
-    console.log(userId);
-    console.log(title);
     const eventId = _id;
 
     const user = await User.findOne({ eth_address: userId });
-    console.log("this is the user ", user);
-
-    console.log("this is the events the user is attending ", user.attending_events);
-
     //find User by userId  and add eventId to attending_events
     user.attending_events.push(title);
     user.save();
@@ -69,24 +60,25 @@ const addToMyEvents = async (req, res) => {
 
 const removeFromMyEvents = async (req, res) => {
   try {
-    const { userId } = req.session.userId; //have to send user info
-    const { eventId } = req.body;//alternatively try with req.params._id
+    const userId = req.session.userId; //have to send user info
+    const { title, _id } = req.body;//alternatively try with req.params._id
+    const eventId = _id;
 
-    //filter to remove event
-    const user = await User.findById({ _id: userID });
-    const updatedList = user.attending_events.filter(event => event !== eventId);
-    console.log(updatedList);
+
+    //filter to remove event from user
+    const user = await User.findOne({ eth_address: userId });
+    const updatedList = user.attending_events.filter(event => event !== title);
     user.attending_events = updatedList;
-    //user.attending_events.push(userId);
     user.save();
 
-    //filter event to remove user
-    const event = await Event.findById({ _id: eventId });
-    //filter to remove
-    const newAttendees = event.attendees.filter(user => user !== userId)
-    console.log(newAttendees);
-
+    //remove user from event
+    const event = await Event.findOne({ _id: eventId });
+    console.log("this is the event", event);
+    // //filter to remove
+    const newAttendees = event.attendees.filter(attendees => attendees !== userId)
+    event.attendees = newAttendees;
     event.save();
+    res.send(event)
 
   }
   catch (err) {

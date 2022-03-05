@@ -24,7 +24,7 @@ router.get('/events', getCommunityEvents);
 // router.patch('/events/:id/add', addToMyEvents);
 router.patch('/events/add', addToMyEvents);
 
-router.patch('/events/:id/remove', removeFromMyEvents);
+router.patch('/events/remove', removeFromMyEvents);
 
 //FORM related
 router.post('/form', postEvent);
