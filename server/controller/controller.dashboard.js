@@ -26,17 +26,51 @@ const getCommunityEvents = async (req, res) => {
 
 const addToMyEvents = async (req, res) => {
   try {
-    //as input will give event_id
-    const event = await 
-    const user = await
+    //const eventId = req.param.id;
+    const { userId } = req.session.userId; //have to send user info
+    const { eventId } = req.body;//alternatively try with req.params._id
 
+    const user = await User.findById({ _id: userID });
+    //find User by userId  and add eventId to attending_events
+    user.attending_events.push(userId);
+    user.save();
+
+    //find Event by eventID and add userID to attendees
+    const event = await Event.findById({ _id: eventId });
+    event.attendees.push(userId);
+    event.save();
   }
-  catch (err) { }
+
+  //as input will give event_id
+  // const event = await 
+  // const user = await
+  catch (err) { console.log(err) }
 }
 
 const removeFromMyEvents = async (req, res) => {
-  try { }
-  catch (err) { }
+  try {
+    const { userId } = req.session.userId; //have to send user info
+    const { eventId } = req.body;//alternatively try with req.params._id
+
+    //filter to remove event
+    const user = await User.findById({ _id: userID });
+    const updatedList = user.attending_events.filter(event => event !== eventId);
+    console.log(updatedList);
+    user.attending_events = updatedList;
+    //user.attending_events.push(userId);
+    user.save();
+
+    //filter event to remove user
+    const event = await Event.findById({ _id: eventId });
+    //filter to remove
+    const newAttendees = event.attendees.filter(user => user !== userId)
+    console.log(newAttendees);
+    event.save();
+
+  }
+  catch (err) {
+    console.log(err)
+  }
 }
 
 

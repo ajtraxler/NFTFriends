@@ -6,6 +6,9 @@ const getDBEthAddresses = async (req, res) => {
   try {
     const { eth_address } = req.body;
     const user = await User.findById({ eth_address: eth_address });
+    if (user) {
+      req.session.userId = user._id;
+    }
     res.send(user);
     res.status(200);
     return user;
@@ -19,12 +22,14 @@ const getDBEthAddresses = async (req, res) => {
 //if eth_adress not in DB yet, add to DB
 const postNewUser = async (req, res) => {
   try {
+    console.log('in post')
     const { eth_address } = req.body;
     const newUser = await User.create({ eth_address: eth_address });
+    req.session.userId = newUser._id;
+    console.log(req.session)
     res.send(newUser);
     res.status(201);
     return newUser;
-
   }
   catch (err) {
     console.log(err, "error");

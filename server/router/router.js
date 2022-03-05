@@ -20,15 +20,16 @@ router.patch('/', updateNFTCollection); //put vs patch??
 
 
 //DASHBOARD relateds
-router.get('/Events', getCommunityEvents);
-router.patch('/Events/:id/add', addToMyEvents);
-router.patch('/Events/:id/remove', removeFromMyEvents);
+router.get('/events', getCommunityEvents);
+router.patch('/events/:id/add', addToMyEvents);
+router.patch('/events/:id/remove', removeFromMyEvents);
 
 //FORM related
 router.post('/form', postEvent);
 
 //Event related
-// router.patch('/eventItem/:id', changeAttending);
+// router.patch('/eventItem/:id', changeAttending); dont think i need this... can use dashsboard functions
+//and green button can be handled by front end ...
 
 
 module.exports = router;
