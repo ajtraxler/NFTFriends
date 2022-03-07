@@ -1,5 +1,11 @@
 const { User, Event } = require('../model/models.js');
-const getNfts = require("./controller.nfts.moralis.js");
+//const { getNfts } = require("./controller.nfts.moralis.js");
+
+// Start moralis
+const Moralis = require('moralis/node');
+const serverUrl = "https://eyeteqg5af1y.usemoralis.com:2053/server";
+const appId = "UP1pIX52iA03bkolFJVtcRzCP7sxDsX5CY899Skl";
+Moralis.start({ serverUrl, appId });
 
 //get ethAdresses from UserDB
 const getDBEthAddresses = async (req, res) => {
@@ -27,6 +33,7 @@ const postNewUser = async (req, res) => {
     console.log(req.params) //remove nft_groups later
     console.log({ eth_address });
     const newUser = await User.create({ eth_address: eth_address });
+    console.log(newUser);
     req.session.userId = newUser.eth_address;
     res.send(JSON.stringify(newUser));
     res.status(201);
@@ -44,19 +51,26 @@ const postNewUser = async (req, res) => {
 //if eth adress in DB, update NFT holdings (completely replace?)
 const updateNFTCollection = async (req, res) => {
   try {
-    const { eth_address } = req.body;
+    nft_groups = [];
+    const { eth_address } = req.params;
+    const options = { address: eth_address }
 
     //make NFT API call
-    const newNFTList = await getNfts(eth_address);
+    //const newNFTList = await getNfts(eth_address);
+
+    const nfts = await Moralis.Web3API.account.getNFTs(options);
+    for (let nft of nfts.result) {
+      if (!nft_groups.includes(nft.name)) {
+        nft_groups.push(nft.name);
+      }
+    }
 
     //filter by which to find
-    const filter = { eth_address: eth_address };
-    const update = { nft_groups: newNFTList };
+    const filter = { eth_address: eth_address.toLowerCase() };
+    const update = { nft_groups };
     const user = await User.findOneAndUpdate(filter, update, { new: true });
-
     res.send(user);
     res.status(204);
-    return user;
   }
   catch (err) {
     console.log(err);

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 //nftss
-const { getNfts } = require('../controller/controller.nfts.moralis.js');
+//const { getNfts } = require('../controller/controller.nfts.moralis.js');
 //login
 const { getDBEthAddresses, postNewUser, updateNFTCollection, postFakeUser } = require('../controller/controller.login.js');
 //dashboard
@@ -15,14 +15,14 @@ const { postEvent } = require('../controller/controller.form.js');
 
 
 //fetching NFTs related
-router.get('/nfts/:eth_address', getNfts);
+//router.get('/nfts/:eth_address', getNfts);
 
 //LOGIN related
 router.get('/:eth_address', getDBEthAddresses);
 router.post('/:eth_address', postNewUser);
 router.post('/', postFakeUser);
 
-router.patch('/', updateNFTCollection); //put vs patch??
+router.patch('/:eth_address', updateNFTCollection); //put vs patch??
 
 
 //DASHBOARD relateds
