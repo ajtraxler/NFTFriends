@@ -1,5 +1,5 @@
 const { User, Event } = require('../model/models.js');
-const getNfts = require("./controller.nfts.js");
+const getNfts = require("./controller.nfts.moralis.js");
 
 //get ethAdresses from UserDB
 const getDBEthAddresses = async (req, res) => {

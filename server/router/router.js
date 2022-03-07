@@ -10,8 +10,12 @@ const { getCommunityEvents, addToMyEvents, removeFromMyEvents } = require('../co
 const { postEvent } = require('../controller/controller.form.js');
 //const {changeAttending } = require('controller/controller.event.js');
 
+
+
+
+
 //fetching NFTs related
-router.get('/nfts', getNfts);
+router.get('/nfts/:eth_address', getNfts);
 
 //LOGIN related
 router.get('/', getDBEthAddresses);
@@ -23,7 +27,6 @@ router.patch('/', updateNFTCollection); //put vs patch??
 router.get('/events', getCommunityEvents);
 // router.patch('/events/:id/add', addToMyEvents);
 router.patch('/events/add', addToMyEvents);
-
 router.patch('/events/remove', removeFromMyEvents);
 
 //FORM related

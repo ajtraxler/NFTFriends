@@ -7,7 +7,9 @@ Moralis.start({ serverUrl, appId });
 
 const getNfts = async (req, res) => {
     nft_group = [];
-    const { eth_address } = req.body;
+    // const { eth_address } = req.body;
+    const { eth_address } = req.params;
+
     console.log("eth address", eth_address)
     const options = { address: eth_address }
     console.log("eth options", options);
