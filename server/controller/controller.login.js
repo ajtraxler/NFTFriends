@@ -44,7 +44,7 @@ const updateNFTCollection = async (req, res) => {
     const { eth_address } = req.body;
 
     //make NFT API call
-    const newNFTList = getNfts(eth_address);
+    const newNFTList = await getNfts(eth_address);
 
     //filter by which to find
     const filter = { eth_address: eth_address };

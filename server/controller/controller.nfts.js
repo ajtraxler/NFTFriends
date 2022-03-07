@@ -15,6 +15,7 @@ const web3 = createAlchemyWeb3(
 const getNfts = async (req, res) => {
     // The wallet address we want to query for NFTs:
     const { eth_address } = req.body;
+    console.log(eth_address);
     const ownerAddr = eth_address //check this is a string..
     const nft_groups = [];
 
@@ -34,4 +35,4 @@ const getNfts = async (req, res) => {
     //take return value and save
 }
 
-module.exports = getNfts;
+module.exports = { getNfts };
