@@ -3,7 +3,7 @@ const router = express.Router();
 //nftss
 const { getNfts } = require('../controller/controller.nfts.moralis.js');
 //login
-const { getDBEthAddresses, postNewUser, updateNFTCollection } = require('../controller/controller.login.js');
+const { getDBEthAddresses, postNewUser, updateNFTCollection, postFakeUser } = require('../controller/controller.login.js');
 //dashboard
 const { getCommunityEvents, addToMyEvents, removeFromMyEvents } = require('../controller/controller.dashboard.js');
 //form
@@ -18,8 +18,10 @@ const { postEvent } = require('../controller/controller.form.js');
 router.get('/nfts/:eth_address', getNfts);
 
 //LOGIN related
-router.get('/', getDBEthAddresses);
-router.post('/', postNewUser);
+router.get('/:eth_address', getDBEthAddresses);
+router.post('/:eth_address', postNewUser);
+router.post('/', postFakeUser);
+
 router.patch('/', updateNFTCollection); //put vs patch??
 
 
