@@ -1,6 +1,8 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import moment from 'moment';
+import './EventItem.css'
 
 
 function EventItem({ event, addfunc, key }) {
@@ -12,14 +14,16 @@ function EventItem({ event, addfunc, key }) {
     }
 
     return (
-        <div>
-            <div onClick={() => addfunc(event)} key={key}>EventItem
-                {event.group}
-                {event.title}
-                {event.date}
+        <div className="eventItemClass">
+            <div onClick={() => addfunc(event)} key={key}>
+                {event.group} <br />
+                {event.title}<br />
+                {moment(event.date).format(' MMMM Do[,] YYYY')}<br />
+
             </div>
             <button onClick={eventPageHandler} >See details</button>
-
+            <br />
+            <br />
 
 
         </div>

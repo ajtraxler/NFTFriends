@@ -5,7 +5,7 @@ import EventList from './EventList.js'
 import { useNavigate } from 'react-router-dom';
 import { addToMyEventsC } from '../Services/ApiClient'
 import { removeFromMyEventsC } from '../Services/ApiClient'
-
+import './Dashboard.css'
 
 function Dashboard() {
     const [isLoading, setIsLoading] = React.useState(true);
@@ -78,23 +78,30 @@ function Dashboard() {
 
     return (
         <div>
-            <div className="buttonCreateEvent">
-                <button onClick={formHandler} > Create event</button>
+            <div className="topLevel">
+                <h1>Welcome to Your Dashboard</h1>
+                <div className="buttonCreateEvent">
+                    <button onClick={formHandler} > Create event</button>
+                </div>
             </div>
-            {myEvents.length > 0
-                ? (<div><h2>Events you are attending:</h2>
-                    <EventList events={myEvents} addfunc={addToList}></EventList>
-                </div>)
-                : console.log('No events attending yet')}
-            {
-                isLoading
-                    ? (<h1>Loading..</h1>)
-                    : (<div>
-                        <div><h2>Browse events in your community:</h2></div>
-                        <div>Browse events in your community:</div>
-                        <EventList events={events} addfunc={addToList}></EventList>
-                    </div>)
-            }
+
+            <div className="overallDashboard">
+                <div className="eventPartOfDashboard">
+                    {myEvents.length > 0
+                        ? (<div className="eventsDashboard"><h2>Events you are attending:</h2>
+                            <EventList events={myEvents} addfunc={addToList}></EventList>
+                        </div>)
+                        : console.log('No events attending yet')}
+                    {
+                        isLoading
+                            ? (<h1>Loading..</h1>)
+                            : (<div>
+                                <div><h2>Browse events in your community:</h2></div>
+                                <EventList events={events} addfunc={addToList}></EventList>
+                            </div>)
+                    }
+                </div>
+            </div>
         </div>
     );
 }

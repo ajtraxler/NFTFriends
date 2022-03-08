@@ -1,0 +1,13 @@
+.eventItemClass{
+    display:flex;
+    flex-direction:column;
+    justify-content: flex-end;
+    padding-left: 10px;
+    padding-right: 10px;
+
+
+    border: 1px black solid;
+    width:200px;
+    height:200px;
+    margin:10px;
+}
