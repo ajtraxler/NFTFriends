@@ -10,7 +10,9 @@ Moralis.start({ serverUrl, appId });
 //get ethAdresses from UserDB
 const getDBEthAddresses = async (req, res) => {
   try {
+    console.log('we are in get DBETH serverside');
     const { eth_address } = req.params;
+    console.log(req.params);
     const user = await User.findOne({ eth_address: eth_address });
     if (user) {
       req.session.userId = user.eth_address;
@@ -30,10 +32,9 @@ const getDBEthAddresses = async (req, res) => {
 const postNewUser = async (req, res) => {
   try {
     const { eth_address } = req.params;
-    console.log(req.params) //remove nft_groups later
-    console.log({ eth_address });
+    // console.log(req.params) //remove nft_groups later
+    // console.log({ eth_address });
     const newUser = await User.create({ eth_address: eth_address });
-    console.log(newUser);
     req.session.userId = newUser.eth_address;
     res.send(JSON.stringify(newUser));
     res.status(201);

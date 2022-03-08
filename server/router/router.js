@@ -19,14 +19,14 @@ const { postEvent } = require('../controller/controller.form.js');
 
 //LOGIN related
 router.get('/:eth_address', getDBEthAddresses);
-router.post('/:eth_address', postNewUser);
-router.post('/', postFakeUser);
+// router.post('/:eth_address', postNewUser);
+//router.post('/', postFakeUser);
 
 router.patch('/:eth_address', updateNFTCollection); //put vs patch??
 
 
 //DASHBOARD relateds
-router.get('/events', getCommunityEvents);
+router.post('/events', getCommunityEvents);
 // router.patch('/events/:id/add', addToMyEvents);
 router.patch('/events/add', addToMyEvents);
 router.patch('/events/remove', removeFromMyEvents);

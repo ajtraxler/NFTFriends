@@ -4,7 +4,7 @@ const { User, Event } = require('../model/models.js');
 
 const getCommunityEvents = async (req, res) => {
   try {
-    //assuming here that browser knows which individual we are on
+    //session id for individual user
     console.log('in get community events');
     const { nft_groups } = req.body;//get groups of user
     const communityEvents = [];
@@ -18,9 +18,10 @@ const getCommunityEvents = async (req, res) => {
         }
       }
     }
-    res.send(JSON.stringify(communityEvents));
+    console.log(communityEvents);
+    res.send(communityEvents);
     res.status(200);
-    return JSON.stringify(communityEvents);
+    return communityEvents;
   }
   catch (err) {
     console.log(err, "err");
