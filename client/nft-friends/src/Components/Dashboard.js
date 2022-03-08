@@ -1,8 +1,10 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom'
-import { communityEvents } from '../Services/ApiClient'
+import { communityEvents, removeFromMyEvents } from '../Services/ApiClient'
 import EventList from './EventList.js'
 import { useNavigate } from 'react-router-dom';
+import { addToMyEventsC } from '../Services/ApiClient'
+import { removeFromMyEventsC } from '../Services/ApiClient'
 
 
 function Dashboard() {
@@ -34,6 +36,17 @@ function Dashboard() {
         }
     }, [events])
 
+    const asyncAddToMyEventsC = async (event) => {
+        let newEvent = await addToMyEventsC(event);
+        return newEvent;
+    }
+
+    // const asyncRemoveFromMyEventsC = async (event) => {
+    //     let newEvent = await removeFromMyEvents(event);
+    //     return newEvent;
+    // }
+
+
 
 
 
@@ -41,15 +54,21 @@ function Dashboard() {
 
     const addToList = (eventItem) => {
         if (!myEvents.includes(eventItem)) {
+            console.log(eventItem);
+            // let newEvent = asyncAddToMyEventsC(eventItem)
             let newEvents = myEvents.concat(eventItem);
             setMyEvents(newEvents);
-            console.log("event Item added:", eventItem)
+            // addToMyEvents(eventItem);
+
         }
         else {
-            setMyEvents(myEvents.filter(event => event !== eventItem));
-            console.log(myEvents);
+
+            let newEvents = myEvents.filter(event => event !== eventItem);
+            setMyEvents(newEvents);
+            console.log(newEvents);
+            // removeFromMyEvents(myEvents);
         }
-        console.log("my events: ", myEvents)
+
     }
 
     const formHandler = () => {
@@ -59,8 +78,9 @@ function Dashboard() {
 
     return (
         <div>
-            <div>Dashboard</div>
-            <button onClick={formHandler} > Create event</button>
+            <div className="buttonCreateEvent">
+                <button onClick={formHandler} > Create event</button>
+            </div>
             {myEvents.length > 0
                 ? (<div><h2>Events you are attending:</h2>
                     <EventList events={myEvents} addfunc={addToList}></EventList>
@@ -70,7 +90,7 @@ function Dashboard() {
                 isLoading
                     ? (<h1>Loading..</h1>)
                     : (<div>
-                        <div><h2>Events</h2></div>
+                        <div><h2>Browse events in your community:</h2></div>
                         <div>Browse events in your community:</div>
                         <EventList events={events} addfunc={addToList}></EventList>
                     </div>)

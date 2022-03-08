@@ -4,7 +4,7 @@ const getNFTSC = (eth_address) => {
 
     console.log('in get nft sc')
     console.log(eth_address, "apieth address");
-    return fetch(`${BASE_URL}/${eth_address}`, {
+    return fetch(`${BASE_URL}/login/${eth_address}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' }
     })
@@ -13,12 +13,12 @@ const getNFTSC = (eth_address) => {
 }
 
 const checkIfInDBC = (eth_address) => {
-    return fetch(`${BASE_URL}/${eth_address}`)
+    return fetch(`${BASE_URL}/login/${eth_address}`)
         .then(res => res.json())
         .catch((err) => console.log(err, "error"))
 }
 const postUserC = (eth_address) => {
-    return fetch(`${BASE_URL}/${eth_address}`, {
+    return fetch(`${BASE_URL}/login/${eth_address}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         // body: JSON.stringify(eth_address)
@@ -51,5 +51,38 @@ const postEventToServer = (event) => {
 
 }
 
+const addToMyEventsC = (event) => {
+    return fetch(`${BASE_URL}/events/add`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(event)
+    })
+        .then(response => {
+            console.log(response);
+            return response.json();
+        })
+        .catch(e => console.log(e))
+}
 
-module.exports = { getNFTSC, checkIfInDBC, postUserC, communityEvents, postEventToServer } //getNFTS,
+const removeFromMyEvents = (event) => {
+    return fetch(`${BASE_URL}/event/remove`, {
+        method: 'POST',
+
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(event)
+    })
+        .then(response => {
+            console.log(response);
+            return response.json();
+        })
+        .catch(e => console.log(e))
+}
+
+// addToMyEventsC, removeFromMyEvents, 
+
+
+module.exports = { addToMyEventsC, removeFromMyEvents, getNFTSC, checkIfInDBC, postUserC, communityEvents, postEventToServer } //getNFTS,
