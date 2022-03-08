@@ -34,5 +34,22 @@ const communityEvents = (nft_groups) => {
     })
 }
 
+const postEventToServer = (event) => {
+    return fetch(`${BASE_URL}/form`, {
+        method: 'POST',
 
-module.exports = { getNFTSC, checkIfInDBC, postUserC, communityEvents } //getNFTS,
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(event)
+    })
+        .then(response => {
+            console.log(response);
+            return response.json();
+        })
+        .catch(e => console.log(e))
+
+}
+
+
+module.exports = { getNFTSC, checkIfInDBC, postUserC, communityEvents, postEventToServer } //getNFTS,

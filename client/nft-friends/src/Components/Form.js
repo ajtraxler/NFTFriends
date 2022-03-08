@@ -2,15 +2,36 @@ import React from 'react'
 import { useLocation } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 import './Form.css'
+import { postEventToServer } from '../Services/ApiClient';
 
 
-function Form() {
+function Form({ }) {
     const location = useLocation();
     const state = location.state;
+
+
+    const submitHandlerForm = (e) => {
+        e.preventDefault();
+        const newEvent = {
+            group: e.target.group.value,
+            host: e.target.host.name,
+            date: e.target.newEventDate.value,
+            title: e.target.title.value,
+            venue: e.target.venue.value,
+            street: e.target.street.value,
+            postcode: e.target.postcode.value,
+            city: e.target.city.value,
+            online: e.target.online.value,
+            // link: e.target.link.value,
+            //attendees: e.target.attendees.value
+        }
+        postEventToServer(newEvent);
+        console.log('went through post event code')
+    }
     return (
         <div >
             <h1>CREATE YOUR EVENT</h1>
-            <form className="eventForm">
+            <form className="eventForm" onSubmit={submitHandlerForm}>
                 <div className="firstThird">
                     <label>Select Your NFT Community</label><br />
                     <select name="group">
@@ -19,7 +40,7 @@ function Form() {
 
                     <br />
                     <label>Host:</label><br />
-                    <input type="text" name="host" placeholder="Insert a title..."></input>
+                    <input type="text" name="host" placeholder="Insert your name..."></input>
                     <br />
 
                     <label>Title:</label><br />
