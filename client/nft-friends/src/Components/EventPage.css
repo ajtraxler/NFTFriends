@@ -1,0 +1,29 @@
+.eventPageLayout{
+    display:flex;
+}
+
+.firstEventPage{
+    display:flex;
+    flex-direction: column;
+    padding: 30px;
+    justify-content: flex-start;
+    align-items:flex-start;
+
+}
+.secondEventPage{
+    display:flex;
+    flex-direction: column;
+    padding: 30px;
+    justify-content: flex-start;
+    align-items:flex-start;
+
+}
+
+.thirdEventPage{
+    display:flex;
+    flex-direction: column;
+    padding: 30px;
+    justify-content: center;
+    align-items:flex-end;
+
+}

@@ -1,0 +1,13 @@
+.eventForm{
+    display:flex;
+    margin:30px;
+    padding: 30px;
+}
+
+.firstThird{
+    padding: 30px;
+}
+
+.secondThird{padding: 30px;
+}
+.thirdThird{padding: 30px;}
