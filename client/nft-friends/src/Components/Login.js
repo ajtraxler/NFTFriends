@@ -6,7 +6,7 @@ import {
     // Route,
     Link
 } from "react-router-dom";
-
+import './Login.css'
 import { useNavigate } from 'react-router-dom';
 
 function Login() {
@@ -77,13 +77,16 @@ function Login() {
 
 
     return (
-        <div>
-            <button onClick={loginHandler} >Login</button>
-            <h1> Connect with Your NFT Community </h1>
-            <h3>Wallet connected: {ethAddress}</h3>
-            <h3>NFTS: {nftCollection ?
-                nftCollection :
-                null}</h3>
+        <div className="grad">
+
+            <div className="loginMainContent">
+                <h1> Connect with Your NFT Community </h1>
+                <h3>Wallet connected: {ethAddress}</h3>
+                <h3>NFTS: {nftCollection ?
+                    nftCollection :
+                    null}</h3>
+                <button className="loginButton" id="loginDash" onClick={loginHandler} >LOGIN </button>
+            </div>
 
         </div>
 

@@ -16,7 +16,7 @@ function EventItem({ event, addfunc, key }) {
     return (
         <div className="eventItemClass">
             <div onClick={() => addfunc(event)} key={key}>
-                {event.group} <br />
+                <span><b> {event.group}</b> </span>  <br />
                 {event.title}<br />
                 {moment(event.date).format(' MMMM Do[,] YYYY')}<br />
 

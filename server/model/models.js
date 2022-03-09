@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
     },
     nft_groups: [String],//check API call name
     userName: String,
-    description: String,
+    // description: String,
     attending_events: [String],
 })
 
@@ -25,6 +25,7 @@ const eventSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
+    description: String,
     title: String,
     venue: String,
     street: String,
@@ -32,7 +33,7 @@ const eventSchema = new mongoose.Schema({
     city: String,
     online: {
         type: Boolean,
-        required: true
+
     },
     link: String,
     attendees: [String]

@@ -18,11 +18,11 @@ const { postEvent } = require('../controller/controller.form.js');
 //router.get('/nfts/:eth_address', getNfts);
 
 //LOGIN related
-router.get('/:eth_address', getDBEthAddresses);
-// router.post('/:eth_address', postNewUser);
-//router.post('/', postFakeUser);
+router.get('/login/:eth_address', getDBEthAddresses);
+router.post('/login/:eth_address', postNewUser);
+router.post('/login', postFakeUser);
 
-router.patch('/:eth_address', updateNFTCollection); //put vs patch??
+router.patch('/login/:eth_address', updateNFTCollection); //put vs patch??
 
 
 //DASHBOARD relateds

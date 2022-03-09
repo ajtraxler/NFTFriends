@@ -10,22 +10,32 @@ function EventPage() {
     const navigate = useNavigate();
     const location = useLocation();
     const state = location.state;
-    console.log(state);
+    console.log(state, "this iss the state");
 
     return (
         <div className="eventPageLayout">
             <div className="firstEventPage">
-                <span>{moment(state.date).format('hh:mm a   [-] MMMM Do[,] YYYY')}</span>
-                <div><h2>{state.title}</h2></div>
-                <div>Host: {state.host}</div>
+                <h3>{moment(state.date).format('hh:mm a   [-] MMMM Do[,] YYYY')}</h3>
+                <div><h1>{state.title}</h1></div>
+                <div><h3><b>Host:</b> {state.host}</h3></div>
                 <br />
-                <div>{state.description}</div>
+                <div className="descriptionBox">Description:{state.description}</div>
             </div>
             <div className="secondEventPage">
-                <div>{moment(state.date).format('hh:mm a   [-] MMMM Do[,] YYYY')}</div>
-                {/* <div>{state.street...}</div> */}
+                <div className="secondEventPageItem">
+                    <div>{moment(state.date).format('hh:mm a   [-] MMMM Do[,] YYYY')}</div>
+                    <div>{state.venue}</div>
+                    <div>{state.street}</div>
+                    {/* <div>{state.postcode}</div>                    <div>{state.street}</div> */}
+                    <div>{state.city}</div>
+
+
+
+                </div>
             </div>
             <div className="thirdEventPage">
+                <div><span><b>NFT Group:</b></span>
+                    <span>{state.group}</span></div>
                 <button>Attending/Attend</button>
 
             </div>

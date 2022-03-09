@@ -8,16 +8,24 @@
     padding: 30px;
     justify-content: flex-start;
     align-items:flex-start;
+    flex-basis:50%; 
+
 
 }
 .secondEventPage{
     display:flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     padding: 30px;
     justify-content: flex-start;
     align-items:flex-start;
+    flex-basis:25%; 
 
 }
+
+.secondEventPageItem{
+display:flex;
+flex-direction:column;
+border: 2px solid black;}
 
 .thirdEventPage{
     display:flex;
@@ -25,5 +33,21 @@
     padding: 30px;
     justify-content: center;
     align-items:flex-end;
+    flex-basis:25%; 
 
+}
+
+.thirdEventPage{
+    display:flex;
+    flex-direction: column;
+    padding: 30px;
+    justify-content: space-between;
+    align-items:flex-start;
+
+}
+
+
+.descriptionBox{
+    border: black 2px solid;
+    padding:15px;
 }

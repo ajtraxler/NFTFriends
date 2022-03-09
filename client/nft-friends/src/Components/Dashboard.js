@@ -77,8 +77,8 @@ function Dashboard() {
 
 
     return (
-        <div>
-            <div className="topLevel">
+        <div className="grad">
+            <div className="topLevel ">
                 <h1>Welcome to Your Dashboard</h1>
                 <div className="buttonCreateEvent">
                     <button onClick={formHandler} > Create event</button>

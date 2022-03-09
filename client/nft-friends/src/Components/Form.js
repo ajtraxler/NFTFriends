@@ -14,7 +14,8 @@ function Form({ }) {
         e.preventDefault();
         const newEvent = {
             group: e.target.group.value,
-            host: e.target.host.name,
+            description: e.target.newDescription.value,
+            host: e.target.host.value,
             date: e.target.newEventDate.value,
             title: e.target.title.value,
             venue: e.target.venue.value,
@@ -25,6 +26,7 @@ function Form({ }) {
             // link: e.target.link.value,
             //attendees: e.target.attendees.value
         }
+        console.log(newEvent)
         postEventToServer(newEvent);
         console.log('went through post event code')
     }
@@ -43,11 +45,11 @@ function Form({ }) {
                     <input type="text" name="host" placeholder="Insert your name..."></input>
                     <br />
 
+
                     <label>Title:</label><br />
                     <input type="text" name="title" placeholder="Insert a title..."></input>
                     <br />
-                    <label>Description</label>
-
+                    <label>Description: </label>
                     <br />
                     <textarea type="text" name="newDescription" rows="10" colus="30" placeholder="Insert a description..."></textarea>
                 </div>

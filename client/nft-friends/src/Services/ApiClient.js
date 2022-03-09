@@ -23,7 +23,6 @@ const postUserC = (eth_address) => {
         headers: { 'Content-Type': 'application/json' },
         // body: JSON.stringify(eth_address)
     })
-
 }
 
 const communityEvents = (nft_groups) => {
@@ -37,7 +36,6 @@ const communityEvents = (nft_groups) => {
 const postEventToServer = (event) => {
     return fetch(`${BASE_URL}/form`, {
         method: 'POST',
-
         headers: {
             'Content-Type': 'application/json'
         },
