@@ -1,17 +1,11 @@
-
-//helloooooo
-//express
-
 const Express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const router = require('./router/router.js')
-//need to hve sessions so you can tell apart users
-//authentication:
+
 const cookieParser = require('cookie-parser')
 const session = require('express-session');
 const SQLLiteStore = require('connect-sqlite3')(session);
-
 
 const app = Express();
 app.use(
@@ -20,7 +14,7 @@ app.use(
         name: 'sessionId',
         saveUninitialized: false,
         resave: false,
-        secret: 'secret-message',//save into env long run
+        secret: 'secret-message',
         cookie: {
             maxAge: 1000 * 60 * 60 * 24, //1 day
             sameSite: true,
@@ -32,8 +26,8 @@ app.use(
 
 app.use(cookieParser());
 
-app.use(cors()); //how do u decide whaat corss to allow
-app.use(Express.json()); //body parssesr
+app.use(cors());
+app.use(Express.json());
 app.use(morgan('short'));
 app.use(router);
 
