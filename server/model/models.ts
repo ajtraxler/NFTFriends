@@ -1,29 +1,18 @@
-import { UserType, EventType } from "../types";
-import { model, Schema, Model, Document } from 'mongoose';
 import { db } from './db'
+import { UserType, EventType } from '../types';
+import { Schema, Model } from 'mongoose';
 
-
-//schema
 const userSchema: Schema = new db.Schema({
-    eth_address: {
-        type: String,
-        required: true
-    },
+    eth_address: { type: String, required: true },
     nft_groups: [String],
     userName: String,
     attending_events: [String],
 })
 
-const eventSchema: Schema = new db.Schema({
-    group: {
-        type: String,
-        required: true
-    },
+const eventSchema = new db.Schema({
+    group: { type: String, required: true },
     host: String,
-    date: {
-        type: Date,
-        required: true
-    },
+    date: { type: Date, required: true },
     description: String,
     title: String,
     venue: String,
