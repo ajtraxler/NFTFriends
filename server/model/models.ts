@@ -21,7 +21,7 @@ const eventSchema = new db.Schema({
     city: String,
     online: Boolean,
     link: String,
-    attendees: [String]
+    attendees: [String],
 })
 
 export const User: Model<UserType> = db.model('User', userSchema);

@@ -2,63 +2,85 @@ import { User, NFTEvent } from '../model/models';
 import express, { Request, Response } from "express";
 import { EventType, UserType } from '../types';
 
-export const getCommunityEvents = async (req: Express.Request, res: Express.Response) => {
+// Takes an array of the user NFT groups that are passed down through the login and compares with all the NFT groups to find events that they have access to.
+export const getCommunityEvents = async (req: Request, res: Response): Promise<void> => {
   try {
-    const nft_groups = req.body; 
-    const communityEvents: [] = [];
-    const events: Array<typeof NFTEvent> = await NFTEvent.find();
-    for (let group of nft_groups) {
-      for (let event of events) {
-        if (event.group === group) {
-          communityEvents.push(event);
+    const nft_groups: String[] = req.body; 
+    const communityEvents: EventType[] = [];
+    const events: EventType[] | null = await NFTEvent.find();
+    if (events) {
+      for (let group of nft_groups) {
+        for (let event of events) {
+          if (event.group === group) {
+            communityEvents.push(event);
+          }
         }
       }
+      res.status(200);
+      res.send(communityEvents);
+    } else {
+      throw "No events were found."
     }
-    res.send(communityEvents);
-    res.status(200);
-    return communityEvents;
   }
   catch (err) {
-    console.log(err, "err");
     res.status(500);
+    console.log(err, "getCommunityEvents is failing.");
   }
-}
+};
 
-export const addToMyEvents = async (req: Express.Request, res: Express.Response) => {
+// Adds an event to the user's attending events, saves the user, and then pushes the user into the event's attendees.
+export const addToMyEvents = async (req: Request, res: Response): Promise<void> => {
   try {
-    const userId = req.session.userId;
-    const { title, _id } = req.body;
-    const eventId = _id;
+    const userId: string = req.sessionID;
+    const title: string = req.body.title;
+    const _id: string = req.body._id;
     const user: UserType | null  = await User.findOne({ eth_address: userId });
-    user.attending_events.push(title);
-    user.save();
-    const event: EventType | null = await Event.findOne({ _id: eventId });
-    event.attendees.push(userId);
-    event.save();
-    res.send(event);
+    if (user) {
+      user.attending_events.push(title);
+      user.save();
+    } else {
+      throw "User not found";
+    }
+    const event: EventType | null = await NFTEvent.findOne({ _id: _id });
+    if (event) {
+      event.attendees.push(userId);
+      event.save();
+      res.send(event);
+    } else {
+      throw "Event not found";
+    }
   } catch (err) { 
-    console.log(err) 
+    console.log(err, "addToMyEvents is not working.") 
     res.status(500);
   }
-}
+};
 
-export const removeFromMyEvents = async (req: Express.Request, res: Express.Response) => {
+// Removes an event from the user's attending events, saves the user, and then removes the user from the event's attendees.
+export const removeFromMyEvents = async (req: Request, res: Response): Promise<void> => {
   try {
-    const userId = req.session.userId; 
-    const { title, _id } = req.body;
-    const eventId = _id;
-    const user: UserType = await User.findOne({ eth_address: userId });
-    const updatedList = user.attending_events.filter(event => event !== title);
-    user.attending_events = updatedList;
-    user.save();
-    const event: EventType = await Event.findOne({ _id: eventId });
-    const newAttendees = event.attendees.filter(attendees => attendees !== userId)
-    event.attendees = newAttendees;
-    event.save();
-    res.send(event)
+    const userId = req.sessionID; 
+    const title: string = req.body.title;
+    const _id: string = req.body._id;
+    const user: UserType | null = await User.findOne({ eth_address: userId });
+    if (user) {
+      const updatedList: string[] = user.attending_events.filter(event => event !== title);
+      user.attending_events = updatedList;
+      user.save();
+    } else {
+      throw "User not found";
+    }
+    const event: EventType | null = await NFTEvent.findOne({ _id: _id });
+    if (event) {
+      const newAttendees: string[] = event.attendees.filter(attendees => attendees !== userId)
+      event.attendees = newAttendees;
+      event.save();
+      res.send(event);
+    } else {
+      throw "Event not found";
+    }
   }
   catch (err) {
-    console.log(err)
+    console.log(err, "removeFromMyEvents is not working.")
     res.status(500);
   }
-}
+};
