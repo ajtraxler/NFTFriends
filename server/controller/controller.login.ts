@@ -1,5 +1,5 @@
-import { User, NFTEvent } from '../model/models';
-import { UserType, NFT, NFTs } from '../types';
+import { User} from '../model/models';
+import { UserType, NFTs } from '../types';
 import { Response, Request } from 'express';
 
 // Starts moralis
