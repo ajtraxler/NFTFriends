@@ -1,11 +1,11 @@
 import express from 'express';
 const route = express.Router();
 
-import { getDBEthAddresses, postNewUser, updateNFTCollection, postFakeUser } from './controller/controller.login';
+import { findExistingUser, postNewUser, updateNFTCollection, postFakeUser } from './controller/controller.login';
 import { getCommunityEvents, addToMyEvents, removeFromMyEvents } from './controller/controller.dashboard';
 import { postEvent } from './controller/controller.form';
 
-route.get('/login/:eth_address', getDBEthAddresses);
+route.get('/login/:eth_address', findExistingUser);
 route.post('/login/:eth_address', postNewUser);
 route.post('/login', postFakeUser);
 route.patch('/login/:eth_address', updateNFTCollection);
