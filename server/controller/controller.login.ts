@@ -1,5 +1,6 @@
 import { User, NFTEvent } from '../model/models';
 import { UserType } from '../types';
+import { Response, Request } from 'express';
 
 // Start moralis
 import Moralis from 'moralis/node';
@@ -7,28 +8,28 @@ const serverUrl: string = "https://eyeteqg5af1y.usemoralis.com:2053/server";
 const appId:string = "UP1pIX52iA03bkolFJVtcRzCP7sxDsX5CY899Skl";
 Moralis.start({ serverUrl, appId });
 
-//get ethAdresses from UserDB
-const getDBEthAddresses = async (req, res) => {
+// if user exists, finds the user and sets the sessionID
+export const findExistingUser = async (req: Request, res: Response): Promise<void> => {
   try {
-    const eth_address: string = req.params;
+    const eth_address: string = req.params.eth_address;
     const user: UserType | null = await User.findOne({ eth_address: eth_address });
     if (user) {
-      req.session.userId = user.eth_address;
+      req.sessionID = user.eth_address;
     }
     res.status(200);
     res.send(JSON.stringify(user));
   }
   catch (err) {
-    console.log("error getdbaddress", err);
+    console.log("error with getDBEthaddresses", err);
     res.status(500);
     res.end();
   }
 }
 
 //if eth_adress not in DB yet, add to DB
-const postNewUser = async (req, res) => {
+export const postNewUser = async (req: Request, res: Response) => {
   try {
-    const { eth_address } = req.params;
+    const eth_address: string = req.params.eth_address;
     // console.log(req.params) //remove nft_groups later
     // console.log({ eth_address });
     const newUser = await User.create({ eth_address: eth_address });
@@ -47,7 +48,7 @@ const postNewUser = async (req, res) => {
 
 
 //if eth adress in DB, update NFT holdings (completely replace?)
-const updateNFTCollection = async (req, res) => {
+export const updateNFTCollection = async (req: Request, res: Response) => {
   try {
     const nft_groups: string[] = [];
     const { eth_address } = req.params;
@@ -78,7 +79,7 @@ const updateNFTCollection = async (req, res) => {
 
 //this is for mock video so u can add different users attending and posting different events...
 
-const postFakeUser = async (req, res) => {
+export const postFakeUser = async (req: Request, res: Response) => {
   try {
     console.log('in post')
     const { eth_address, nft_groups } = req.body; //remove nft_groups later
@@ -96,5 +97,4 @@ const postFakeUser = async (req, res) => {
   }
 }
 
-module.exports = { getDBEthAddresses, postNewUser, updateNFTCollection, postFakeUser };
 

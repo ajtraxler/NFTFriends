@@ -3,7 +3,7 @@ const router = express.Router();
 //nftss
 //const { getNfts } = require('../controller/controller.nfts.moralis.js');
 //login
-const { getDBEthAddresses, postNewUser, updateNFTCollection, postFakeUser } = require('../controller/controller.login.js');
+const { findExistingUser, postNewUser, updateNFTCollection, postFakeUser } = require('../controller/controller.login');
 //dashboard
 const { getCommunityEvents, addToMyEvents, removeFromMyEvents } = require('../controller/controller.dashboard.js');
 //form
@@ -18,7 +18,7 @@ const { postEvent } = require('../controller/controller.form.js');
 //router.get('/nfts/:eth_address', getNfts);
 
 //LOGIN related
-router.get('/login/:eth_address', getDBEthAddresses);
+router.get('/login/:eth_address', findExistingUser);
 router.post('/login/:eth_address', postNewUser);
 router.post('/login', postFakeUser);
 

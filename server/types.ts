@@ -1,10 +1,13 @@
 import { model, Schema, Model, Document } from 'mongoose';
+import { Request } from 'express'
 
 export interface UserType extends Document {
 	eth_address: string;
 	nft_groups?: string[];
 	userName?: string;
-	attending_events?: string[]
+	attending_events?: string[];
+	_id?: string;
+	_v: number
 }
 
 export interface EventType extends Document {
