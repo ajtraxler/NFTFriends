@@ -1,4 +1,4 @@
-const { User, Event } = require('../model/models.js');
+const { User, NFTEvent } = require('../model/models.ts');
 //const { getNfts } = require("./controller.nfts.moralis.js");
 
 // Start moralis
